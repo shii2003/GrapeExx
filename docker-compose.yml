@@ -4,9 +4,20 @@ services:
   redis:
     image: redis:7-alpine
     container_name: redis
-    ports: 6379:6379
+    ports:
+      - 6379:6379
+  frontend:
+    build: ./apps/frontend
+    ports:
+      - 3000:3000
+    depends_on:
+      - api
+    environment:
+      - NEXT_PUBLIC_API_URL=http://api:4000
   api:
     build: ./apps/api
+    ports:
+      - 4000:4000
     depends_on:
       - redis
     environment:
@@ -19,3 +30,8 @@ services:
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:5000/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
