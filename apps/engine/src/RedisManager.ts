@@ -35,4 +35,5 @@ export class RedisManager {
     public getPullFromApiQueueClient(): RedisClientType {
         return this.pullFromApiQueue;
     }
+
 }

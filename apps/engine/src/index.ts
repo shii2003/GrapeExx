@@ -10,10 +10,12 @@ async function main() {
     while (true) {
         try {
             const message = await pullClient.rPop(apiQueueKey);
+
             if (!message) {
 
             } else {
-                console.log(message);
+                const parsedMessage = JSON.parse(message);
+                console.log(parsedMessage);
             }
         } catch (error) {
 
