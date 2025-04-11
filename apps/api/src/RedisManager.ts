@@ -1,6 +1,7 @@
 import { createClient, RedisClientType } from "redis";
 import { messageToEngine } from "./types/messageToEngine";
 import { v4 as uuidv4 } from 'uuid';
+import { messageFromEngineToApi } from "./types/messageFromEngineToApi";
 
 export class RedisManager {
     private static instace: RedisManager;
@@ -31,7 +32,7 @@ export class RedisManager {
     }
 
     public sendToEngineAndAwait(sendMessageToEngine: messageToEngine) {
-        return new Promise<MessageFromOrderbook>((resolve, reject) => {
+        return new Promise<messageFromEngineToApi>((resolve, reject) => {
             const id = uuidv4();
 
             this.subscribeClient.subscribe(id, (message) => {
@@ -51,10 +52,6 @@ export class RedisManager {
                     reject(new Error("Failed to send message to engine."));
                 });
         });
-    }
-
-    public getRandomClientId() {
-
     }
 
 }
