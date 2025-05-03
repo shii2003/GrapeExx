@@ -47,8 +47,30 @@ export class Orderbook {
         }
     }
 
-    public addOrder() {
+    public addOrder(order: Order) {
+        if (order.side === "BUY") {
+            const { fills, executedQuantity } = this.matchBid(order);
+            if (executedQuantity !== order.quantity) {
+                //TODO: store it in a sorted position.
+                this.bids.push(order);
+            }
 
+            return {
+                fills,
+                executedQuantity
+            }
+        } else if (order.side === "SELL") {
+            const { fills, executedQuantity } = this.matchAsk(order);
+
+            if (order.quantity !== executedQuantity) {
+                this.asks.push(order);
+            }
+
+            return {
+                fills,
+                executedQuantity
+            }
+        }
     }
 
     //if you want to buy

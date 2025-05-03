@@ -44,4 +44,9 @@ export type messageFromEngineToApi = {
         executedQuantity: number;
         remainingQuantity: number;
     }
+} | {
+    type: "ERROR";
+    payload: {
+        message: string;
+    }
 }

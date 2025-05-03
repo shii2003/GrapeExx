@@ -1,31 +1,31 @@
-export type CREATE_ORDER = "CREATE_ORDER";
-export type GET_DEPTH = "GET_DEPTH";
-export type GET_OPEN_ORDERS = "GET_OPEN_ORDERS";
-export type CANCEL_ORDER = "CANCEL_ORDER";
-export type ON_RAMP = "ON_RAMP";
-export type BUY = "BUY";
-export type SELL = "SELL";
+export const CREATE_ORDER = "CREATE_ORDER";
+export const GET_DEPTH = "GET_DEPTH";
+export const GET_OPEN_ORDERS = "GET_OPEN_ORDERS";
+export const CANCEL_ORDER = "CANCEL_ORDER";
+export const ON_RAMP = "ON_RAMP";
+export const BUY = "BUY";
+export const SELL = "SELL";
 
 export type CREATE_ORDER_TYPE = {
-    type: CREATE_ORDER,
+    type: typeof CREATE_ORDER,
     payload: {
         market: string;
         price: string;
         quantity: string;
-        side: BUY | SELL;
+        side: typeof BUY | typeof SELL;
         userId: string;
     }
 }
 
 export type GET_DEPTH_TYPE = {
-    type: GET_DEPTH,
+    type: typeof GET_DEPTH,
     payload: {
         market: string;
     }
 }
 
 export type GET_OPEN_ORDERS_TYPE = {
-    type: GET_OPEN_ORDERS,
+    type: typeof GET_OPEN_ORDERS,
     payload: {
         userId: string;
         market: string;
@@ -33,7 +33,7 @@ export type GET_OPEN_ORDERS_TYPE = {
 }
 
 export type ON_RAMP_TYPE = {
-    type: ON_RAMP,
+    type: typeof ON_RAMP,
     payload: {
         amount: string;
         userId: string;
@@ -42,7 +42,7 @@ export type ON_RAMP_TYPE = {
 }
 
 export type CANCEL_ORDER_TYPE = {
-    type: CANCEL_ORDER,
+    type: typeof CANCEL_ORDER,
     payload: {
         orderId: string;
         marketId: string;
@@ -50,7 +50,7 @@ export type CANCEL_ORDER_TYPE = {
 }
 
 
-export type messageToEngine =
+export type FromApiToEngine =
     CREATE_ORDER_TYPE |
     GET_DEPTH_TYPE |
     GET_OPEN_ORDERS_TYPE |
